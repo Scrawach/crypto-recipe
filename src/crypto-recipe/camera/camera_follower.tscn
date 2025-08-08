@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk1kcehqwekoo"]
+
+[ext_resource type="Script" uid="uid://ysurn40pk7cn" path="res://camera/camera_follower.gd" id="1_ivjbi"]
+
+[node name="Camera Follower" type="Marker3D"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
+script = ExtResource("1_ivjbi")
+
+[node name="Camera Distance" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
+
+[node name="Camera3D" type="Camera3D" parent="Camera Distance"]
+unique_name_in_owner = true

@@ -1,3 +1,43 @@
-[gd_scene format=3 uid="uid://c1csf6xsjey42"]
+[gd_scene load_steps=8 format=3 uid="uid://c1csf6xsjey42"]
+
+[ext_resource type="PackedScene" uid="uid://bk1kcehqwekoo" path="res://camera/camera_follower.tscn" id="1_e2o6t"]
+[ext_resource type="PackedScene" uid="uid://bqv68bs8kyj0d" path="res://hero/hero.tscn" id="2_feb5d"]
+[ext_resource type="Material" uid="uid://b7oqmqoitlwkq" path="res://environment/assets/prototype.tres" id="3_feb5d"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e2o6t"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_feb5d"]
+sky_material = SubResource("ProceduralSkyMaterial_e2o6t")
+
+[sub_resource type="Environment" id="Environment_fc0e3"]
+background_mode = 2
+sky = SubResource("Sky_feb5d")
+tonemap_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_e2o6t"]
+size = Vector2(50, 50)
 
 [node name="Game" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fc0e3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="World3D" type="Node3D" parent="."]
+
+[node name="Hero" parent="World3D" node_paths=PackedStringArray("camera") instance=ExtResource("2_feb5d")]
+camera = NodePath("../Camera Follower")
+
+[node name="Camera Follower" parent="World3D" node_paths=PackedStringArray("target") instance=ExtResource("1_e2o6t")]
+target = NodePath("../Hero")
+
+[node name="Environment" type="Node3D" parent="World3D"]
+
+[node name="Ground" type="MeshInstance3D" parent="World3D/Environment"]
+mesh = SubResource("PlaneMesh_e2o6t")
+surface_material_override/0 = ExtResource("3_feb5d")
