@@ -8,6 +8,10 @@
 
 config_version=5
 
+[addons]
+
+AutoExportVersion/version_config_file="uid://dd068h1d4dtsk"
+
 [application]
 
 config/name="Crypto Recipe"
